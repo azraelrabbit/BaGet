@@ -61,12 +61,21 @@ namespace BaGet
                 .CreateDefaultBuilder(args)
                 .ConfigureAppConfiguration((ctx, config) =>
                 {
+                    
                     var root = Environment.GetEnvironmentVariable("BAGET_CONFIG_ROOT");
-
+ 
                     if (!string.IsNullOrEmpty(root))
                     {
                         config.SetBasePath(root);
                     }
+
+                    var jsonApp=Environment.GetEnvironmentVariable("BAGET_APP_CONFIG");
+
+                    if (!string.IsNullOrEmpty(jsonApp))
+                    {
+                        config.AddJsonFile(jsonApp, false, true);
+                    }
+ 
                 })
                 .ConfigureWebHostDefaults(web =>
                 {
